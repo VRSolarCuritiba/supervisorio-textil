@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Supervisório Têxtil</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@400;600;700;900&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#090c11;
+    --panel:#121a25;
+    --panel-2:#18212f;
+    --panel-3:#1f2a3a;
+    --line:rgba(255,255,255,.08);
+    --line-strong:rgba(255,255,255,.16);
+    --ink:#eef2f7;
+    --ink-soft:#93a3b8;
+    --ink-muted:#5c6d82;
+    --accent:#2dd4d8;
+    --accent-dim:rgba(45,212,216,.14);
+    --critical:#d03b3b;
+    color-scheme: dark;
+  }
+  *{box-sizing:border-box;}
+  html,body{height:100%; margin:0;}
+  body{
+    background:
+      radial-gradient(1200px 600px at 15% -10%, rgba(45,212,216,.08), transparent 60%),
+      radial-gradient(900px 500px at 110% 110%, rgba(57,135,229,.10), transparent 60%),
+      var(--bg);
+    color:var(--ink);
+    font-family:'IBM Plex Sans',system-ui,-apple-system,sans-serif;
+    display:flex; align-items:center; justify-content:center;
+    padding:calc(24px + env(safe-area-inset-top,0px)) 20px calc(24px + env(safe-area-inset-bottom,0px));
+  }
+  .mono{font-family:'IBM Plex Mono','Consolas',monospace; font-variant-numeric:tabular-nums;}
+
+  .scene{width:100%; max-width:400px;}
+  .kicker{
+    display:flex; align-items:center; gap:8px; justify-content:center; margin-bottom:18px;
+    font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-muted);
+  }
+  .kicker .dot{width:6px; height:6px; border-radius:50%; background:var(--accent); box-shadow:0 0 8px 1px var(--accent);}
+
+  .card{
+    background:var(--panel); border:1px solid var(--line-strong); border-radius:16px;
+    padding:34px 30px 28px; box-shadow:0 20px 60px rgba(0,0,0,.45);
+  }
+  .card.shake{animation:shake .38s ease;}
+  @keyframes shake{
+    10%,90%{transform:translateX(-1px);} 20%,80%{transform:translateX(3px);}
+    30%,50%,70%{transform:translateX(-6px);} 40%,60%{transform:translateX(6px);}
+  }
+
+  h1{
+    font-family:'Titillium Web',sans-serif; font-weight:700; font-size:20px; letter-spacing:.01em;
+    margin:0 0 4px; text-align:center;
+  }
+  .sub{text-align:center; color:var(--ink-muted); font-size:12.5px; margin:0 0 28px; line-height:1.5;}
+
+  label{display:block; font-size:11px; text-transform:uppercase; letter-spacing:.06em; color:var(--ink-muted); margin-bottom:6px;}
+  .field{margin-bottom:16px;}
+  .field-box{
+    display:flex; align-items:center; background:var(--panel-2); border:1px solid var(--line-strong);
+    border-radius:10px; padding:0 4px 0 13px; transition:border-color .15s ease, box-shadow .15s ease;
+  }
+  .field-box:focus-within{border-color:var(--accent); box-shadow:0 0 0 3px var(--accent-dim);}
+  .field-box input{
+    flex:1; background:none; border:none; outline:none; color:var(--ink);
+    font-family:'IBM Plex Mono',monospace; font-size:14px; padding:11px 0;
+  }
+  .field-box input::placeholder{color:var(--ink-muted); font-family:'IBM Plex Sans',sans-serif;}
+  .toggle-pass{
+    background:none; border:none; color:var(--ink-muted); font-size:11px; font-family:'IBM Plex Sans',sans-serif;
+    cursor:pointer; padding:8px 10px; letter-spacing:.02em; white-space:nowrap;
+  }
+  .toggle-pass:hover{color:var(--accent);}
+
+  .error-box{
+    display:none; align-items:flex-start; gap:8px; background:rgba(208,59,59,.12);
+    border:1px solid rgba(208,59,59,.4); color:#ff9b9b; font-size:12.5px; line-height:1.4;
+    padding:10px 12px; border-radius:9px; margin-bottom:16px;
+  }
+  .error-box.show{display:flex;}
+  .error-box svg{flex:none; margin-top:1px;}
+
+  .btn-submit{
+    width:100%; font-family:'Titillium Web',sans-serif; font-weight:700; text-transform:uppercase;
+    letter-spacing:.05em; font-size:13.5px; padding:13px; border-radius:10px; border:1px solid var(--accent);
+    background:var(--accent); color:#04262a; cursor:pointer; transition:filter .15s ease; margin-top:4px;
+  }
+  .btn-submit:hover{filter:brightness(1.08);}
+  .btn-submit:active{filter:brightness(.95);}
+
+  .foot-note{
+    display:flex; align-items:center; justify-content:center; gap:6px; margin-top:20px;
+    font-size:11px; color:var(--ink-muted); text-align:center;
+  }
+  .foot-note b{color:var(--ink-soft); font-family:'IBM Plex Mono',monospace; font-weight:500;}
+</style>
+</head>
+<body>
+  <div class="scene">
+    <div class="kicker"><span class="dot"></span>Sistema Fiep &middot; Acesso restrito</div>
+    <div class="card" id="card">
+      <h1>Supervisório de Beneficiamento Têxtil</h1>
+      <p class="sub">Informe suas credenciais para acessar a simulação da linha de preparação.</p>
+
+      <div class="error-box" id="errorBox">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M12 2 1 21h22L12 2Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M12 9v5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="17.5" r="1" fill="currentColor"/></svg>
+        <span id="errorText">Usuário ou senha inválidos.</span>
+      </div>
+
+      <form id="loginForm" novalidate>
+        <div class="field">
+          <label for="loginUser">Usuário</label>
+          <div class="field-box">
+            <input type="text" id="loginUser" name="loginUser" placeholder="usuario@sistemafiep.org.br" autocomplete="username" inputmode="email">
+          </div>
+        </div>
+        <div class="field">
+          <label for="loginPass">Senha</label>
+          <div class="field-box">
+            <input type="password" id="loginPass" name="loginPass" placeholder="••••••••" autocomplete="current-password">
+            <button type="button" class="toggle-pass" id="togglePass">Mostrar</button>
+          </div>
+        </div>
+        <button type="submit" class="btn-submit">Entrar</button>
+      </form>
+
+      <div class="foot-note">Sessão local &middot; <b>simulação</b> sem conexão com CLP real</div>
+    </div>
+  </div>
+
+<script>
+  const VALID_USER = 'diego.angelo@sistemafiep.org.br';
+  const VALID_PASS = 'Angelo';
+
+  const form = document.getElementById('loginForm');
+  const userInput = document.getElementById('loginUser');
+  const passInput = document.getElementById('loginPass');
+  const errorBox = document.getElementById('errorBox');
+  const errorText = document.getElementById('errorText');
+  const card = document.getElementById('card');
+  const togglePass = document.getElementById('togglePass');
+
+  togglePass.addEventListener('click', () => {
+    const showing = passInput.type === 'text';
+    passInput.type = showing ? 'password' : 'text';
+    togglePass.textContent = showing ? 'Mostrar' : 'Ocultar';
+  });
+
+  function showError(msg){
+    errorText.textContent = msg;
+    errorBox.classList.add('show');
+    card.classList.remove('shake');
+    void card.offsetWidth;
+    card.classList.add('shake');
+  }
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const user = userInput.value.trim().toLowerCase();
+    const pass = passInput.value;
+
+    if(!user || !pass){
+      showError('Informe usuário e senha para continuar.');
+      return;
+    }
+    if(user === VALID_USER && pass === VALID_PASS){
+      sessionStorage.setItem('vr_supervisorio_auth', 'ok');
+      sessionStorage.setItem('vr_supervisorio_user', user);
+      window.location.href = 'supervisorio.html';
+      return;
+    }
+    passInput.value = '';
+    showError('Login inválido. Verifique o usuário e a senha informados.');
+  });
+
+  if(sessionStorage.getItem('vr_supervisorio_auth') === 'ok'){
+    window.location.href = 'supervisorio.html';
+  }
+</script>
+</body>
+</html>
